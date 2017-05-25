@@ -59,12 +59,13 @@ class NaverWebtoonCrawler:
         return return_list
 
     def get_episode_img(self, episode_num):
-        params = {
+        url_params = {
             'titleId': self.webtoon_id,
             'weekday': self.weekday,
             'no': episode_num
         }
-        response = requests.get(self._naver_webtoon_dedtail,params)
+
+        response = requests.get(self._naver_webtoon_dedtail, url_params)
         soup = BeautifulSoup(response.text, 'lxml')
 
         div = soup.find('div', class_='wt_viewer')
@@ -76,20 +77,21 @@ class NaverWebtoonCrawler:
 
 
 
-    def get_episode_num_list(self, url, page_num):
-        url_params = {
-            'titleId': self.webtoon_id,
-            'weekday': self.weekday,
-            'page': page_num
-        }
-        response = requests.get(url, url_params)
+    # def get_episode_num_list(self, url, page_num):
+    #     url_params = {
+    #         'titleId': self.webtoon_id,
+    #         'weekday': self.weekday,
+    #         'page': page_num
+    #     }
+    #     response = requests.get(url, url_params)
+    #
+    #     pattern = r'(?<=&no=)\d*(?=&)'
+    #
+    #     m_list = re.finditer(pattern, response.text)
+    #     episode_num_list = list(set([m.group() for m in m_list]))
+    #     episode_num_list.sort(reverse=True)
+    #     return episode_num_list
 
-        pattern = r'(?<=&no=)\d*(?=&)'
-
-        m_list = re.finditer(pattern, response.text)
-        episode_num_list = list(set([m.group() for m in m_list]))
-        episode_num_list.sort(reverse=True)
-        return episode_num_list
 
 
 
@@ -102,9 +104,6 @@ class NaverWebtoon:
         self.weekday = weekday
         self.episode_list = []
         self.crawl_page = NaverWebtoonCrawler(self.webtoon_id, self.weekday)
-
-    def get_info(self):
-        return '정보 리턴'
 
     # - 특정 페이지 에피소드 리스트 출력
     def view_episode_list(self, num=1):
@@ -132,15 +131,15 @@ class NaverWebtoon:
         return return_list
 
 
-    def download_episode(self):
-        pass
-
-
-
-    def save_webtoon(self, create_html=False):
-        if create_html:
-            return '다운받은 웹툰을 볼 수 있는 html까지 생성해서 저장'
-        return '특정 경로에 웹툰 전체를 다운받아서 저장'
+    # def download_episode(self):
+    #     pass
+    #
+    #
+    #
+    # def save_webtoon(self, create_html=False):
+    #     if create_html:
+    #         return '다운받은 웹툰을 볼 수 있는 html까지 생성해서 저장'
+    #     return '특정 경로에 웹툰 전체를 다운받아서 저장'
 
 
 titleId = '21815'

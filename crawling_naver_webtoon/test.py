@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import urllib.request
 import shutil
+import os
 
 # response = requests.get("http://comic.naver.com/webtoon/detail.nhn?titleId=21815&no=564&weekday=mon")
 # soup = BeautifulSoup(response.text,'lxml')
@@ -21,15 +22,15 @@ filename = imgurl.split("/")[-1]
 
 
 
-response = requests.get(imgurl, stream=True)
+response = requests.get(imgurl).content
 
 # with open(filename, 'wb') as f:
 #     f.write(response.content)
 
+directory = './download/'
 
-with open(filename, "wb") as f:
-    for chunk in response.iter_content(chunk_size=1024):
+if not os.path.exists(directory):
+    os.makedirs(directory)
+with open(directory+filename, 'wb') as f:
+    f.write(response)
 
-        # writing one chunk at a time to pdf file
-        if chunk:
-            f.write(chunk)
