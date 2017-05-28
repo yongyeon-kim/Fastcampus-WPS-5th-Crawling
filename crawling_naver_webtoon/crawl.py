@@ -1,7 +1,5 @@
-# naver 패키지 내부의 NaverWebtoonCrawler클래스형 인스턴스를 생성 인스턴스에서 crawl_episode실행
-from naver import NaverWebtoonCrawler
+from naver.naverwebtooncrawler import NaverWebtoonCrawler
 
-webtoon_id = '21815'
 
-crawler = NaverWebtoonCrawler(webtoon_id)
-crawler.crawl_episode(2)
+nw_crawler = NaverWebtoonCrawler()
+nw_crawler.start_scrawler()
